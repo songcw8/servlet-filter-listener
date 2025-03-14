@@ -13,15 +13,15 @@ public class ParsingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        //HttpResponse response = (HttpResponse) resp;
+//        HttpServletResponse response = (HttpServletResponse) resp;
         System.out.println(request.getPathInfo());
         String[] params = request.getPathInfo().split("/");
-        if(params.length == 1) {
-            for (int i = 0; i < params.length; i++) {
+        System.out.println(Arrays.toString(params));
+        if (params.length > 1) {
+            for (int i = 1; i < params.length; i++) {
                 req.setAttribute("param%d".formatted(i), params[i]);
             }
         }
-        System.out.println(Arrays.toString(params));
         chain.doFilter(req, resp);
     }
 }
